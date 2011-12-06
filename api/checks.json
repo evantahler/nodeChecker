@@ -1,0 +1,19 @@
+[
+	{
+		"name":"ping_google.com",
+		"type":"ping",
+		"frequencyInSeconds":10,
+		"entriesToKeep":100,
+		"params":{
+			"hostname":"google.com"
+		}
+	},
+
+	{
+		"name":"check_random_numbers",
+		"type":"randomNumber",
+		"frequencyInSeconds":1,
+		"entriesToKeep":100,
+		"params":{}
+	}
+]

@@ -1,0 +1,47 @@
+{
+    "apiVerson" : 1,
+	"systemTimeZone" : "America/Los_Angeles",
+	"defaultOutputType" : "JSON",
+	"xmlRootNode" : "XML",
+	"requestLimitPerHour" : 1000,
+	
+	"serverAddress" : "127.0.0.1",
+	"webServerPort" : 8080,
+	"socketServerPort" : 5000,
+	"serverName" : "daveAPIServer",
+	"socketServerWelcomeMessage" : "Hello! Welcome to the daveNodeApi server",
+	
+	"logging" : "true",
+	"logFolder" : "./log/",
+	"logFile" : "api.log",
+	"maxLogFileSize" : "10485760",
+	"logTable" : "log",
+	"logRequests" : true,
+	
+	"cronProcess" : true,
+	"cronTimeInterval" : 60000,
+
+	"sessionDurationMinutes" : 1440,
+
+	"flatFileDirectory" : "./public/",
+
+	"cache" : {
+		"defaultExpireTime" : "60000"
+	},
+
+	"defaultLimit" : 100,
+	"defaultOffset" : 0,
+
+	"postVariables" : [
+		"callback",
+		"action",
+		"limit",
+		"offset",
+		"fileName",
+		"password",
+		"sessionKey",
+		"hostname",
+		"check",
+		"since"
+	]
+}
