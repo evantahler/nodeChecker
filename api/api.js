@@ -80,6 +80,7 @@ function initCheckers(api, next)
 				setTimeout(api.runCheck, (check.frequencyInSeconds * 1000), api, check);
 			});
 		}catch(e){
+			api.log(e, "red");
 			api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
 			api.log(" > "+check.name+" will not be processed", "red");
 		}
@@ -410,6 +411,7 @@ api.fs = require("fs");
 api.mysql = require('mysql')
 api.SequelizeBase = require("sequelize");
 api.expressServer = require('express');
+api.request = require('request');
 api.form = require('connect-form');
 api.async = require('async');
 api.crypto = require("crypto");

@@ -42,7 +42,7 @@ checker.check = function(api, params, next){
 			response.number = avg;
 			response.check = true;
 		}else{
-			response.pingDuration = 0;	
+			response.number = 0;	
 			response.error = "cannot reach host "+params.hostname;
 		}
 		next(response);

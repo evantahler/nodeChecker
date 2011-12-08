@@ -1,15 +1,5 @@
 [
 	{
-		"name":"ping_google_com",
-		"type":"ping",
-		"frequencyInSeconds":10,
-		"entriesToKeep":100,
-		"params":{
-			"hostname":"google.com"
-		}
-	},
-	
-	{
 		"name":"random_numbers",
 		"type":"randomNumber",
 		"frequencyInSeconds":1,
@@ -18,11 +8,24 @@
 	},
 
 	{
-		"name":"random_numbers_again",
-		"type":"randomNumber",
-		"frequencyInSeconds":2,
+		"name":"ping_google_com",
+		"type":"ping",
+		"frequencyInSeconds":10,
 		"entriesToKeep":100,
-		"params":{}
+		"params":{
+			"hostname":"google.com"
+		}
+	},
+
+	{
+		"name":"http_google_com",
+		"type":"httpRequest",
+		"frequencyInSeconds":10,
+		"entriesToKeep":100,
+		"params":{
+			"hostname":"http://www.google.com",
+			"matcher":"</div>"
+		}
 	}
 
 ]

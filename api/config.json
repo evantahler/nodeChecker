@@ -41,6 +41,8 @@
 		"password",
 		"sessionKey",
 		"hostname",
+		"matcher",
+		"path",
 		"check",
 		"since"
 	]
