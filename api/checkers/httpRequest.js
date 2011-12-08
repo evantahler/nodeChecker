@@ -15,9 +15,6 @@ checker.check = function(api, params, next){
 	response.error = false;
 	response.check = false;
 
-	// var remoteURL = api.http.createClient(80, params.hostname);
-	var path = "/";
-	if(params.path != null){path = params.path;}
 	var startTime = new Date().getTime();
 	api.request(params.hostname, function (error, httpResponse, body) {
 	  if (!error && httpResponse.statusCode == 200) {
