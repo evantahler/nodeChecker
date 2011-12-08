@@ -113,12 +113,16 @@
 				var avg = 0;
 				var count = 0;
 				var total = 0;
+				var min = null;
+				var max = null;
 				for(var i in series.data){
+					if (series.data[i].y > max || max == null){max = series.data[i].y;}
+					if (series.data[i].y < min || min == null){min = series.data[i].y;}
 					total = total + series.data[i].y;
 					count++;
 				}
 				avg = Math.round(total/count,5);
-				$("#avgValue_"+name).html("Avg: "+avg);
+				$("#avgValue_"+name).html("Min: "+min+" | Max: "+max+" | Avg: "+avg);
 			}
 			setTimeout(app.page.getData, app.page.timeouts[name], name);
 		}
