@@ -49,6 +49,23 @@ body {
   -webkit-box-shadow: 0 0 10px #52d7ec;
   box-shadow: 0 0 10px #52d7ec; }
 
+  .greenH1 {
+  margin: 3px;
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: bold;
+  padding: 1px;
+  border: 1px solid #667744;
+  font-family: "Bitstream Vera Sans Mono", monospace;
+  background-color: #667744;
+  color: black;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -moz-box-shadow: 0 0 10px #52d7ec;
+  -webkit-box-shadow: 0 0 10px #52d7ec;
+  box-shadow: 0 0 10px #52d7ec; }
+
 .content-page h2 {
   /*background: url(../images/quote_right.png) center right no-repeat;*/ }
 
@@ -227,4 +244,23 @@ label{
   font-size: 1.2em;
   font-weight: bold;
   display: block
+}
+
+#chartHolder{
+  overflow: hidden;
+}
+
+.checkContainer{
+  float:left;
+  margin: 5px;
+  width: 500px;
+  height: 400px;
+  padding: 4px 2px;
+  border: 2px solid #15abc3;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -moz-box-shadow: 0 0 9px #15abc3;
+  -webkit-box-shadow: 0 0 9px #15abc3;
+  box-shadow: 0 0 9px #15abc3;
 }

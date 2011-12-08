@@ -39,7 +39,7 @@ checker.check = function(api, params, next){
 			var lines = stdout.split("\n");
 			var lastLine = lines[(lines.length - 2)];
 			var avg = lastLine.split("=")[1].split("/")[1];
-			response.pingDuration = avg;
+			response.number = avg;
 			response.check = true;
 		}else{
 			response.pingDuration = 0;	

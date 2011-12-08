@@ -30,6 +30,19 @@ action.run = function(api, connection, next){
 			}else{
 				connection.response.check = D;
 			}
+
+			for (var i in api.checks){
+				if (api.checks[i].name == connection.params.check){
+					connection.response.checkData = {};
+					connection.response.checkData.check = api.checks[i].name;
+					connection.response.checkData.type = api.checks[i].type;
+					connection.response.checkData.frequencyInSeconds = api.checks[i].frequencyInSeconds;
+					connection.response.checkData.entriesToKeep = api.checks[i].entriesToKeep;
+					connection.response.checkData.params = '*';
+					break;
+				}
+			}
+
 			next(connection, true);
 		}catch(e){
 			console.log(e);
