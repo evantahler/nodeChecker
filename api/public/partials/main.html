@@ -58,19 +58,21 @@
 				title: {
 				text: null
 			},
-				xAxis: {
+			xAxis: {
+				type: 'datetime',
 				title: {
 					text: null
 				}
 			},
-				yAxis: {
+			yAxis: {
 				title: {
 					text: null
 				}
 			},
 			series: [
 				{
-					name: name,
+					name: "current",
+					lineWidth: 3,
 					data: []
 				}, 
 			]
@@ -92,13 +94,15 @@
 				app.showError("<strong>"+name+"</strong>: No data for this check");
 			}else{
 				if(app.page.hasChartRendered[name] == false){
-					console.log("RENDER");
 					app.page.buildChart(app.page.checks[name]);
 					app.page.hasChartRendered[name] = true;
 				}
 				var series = app.page.charts[name].series[0];
 				for (var i in api.check){
 					var slicer = series.data.length > app.page.chartDataSize;
+					// var date = new Date(api.check[i].timeStamp);
+					// var human_time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+					// console.log(human_time);
 					var newPoint = [parseInt(api.check[i].timeStamp), parseInt(api.check[i].number)];
 					series.addPoint(newPoint, true, slicer);
 					if(api.check[i].timeStamp > app.page.lastTimestamps[name]){
