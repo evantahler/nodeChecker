@@ -12,6 +12,19 @@
 	app.page.chartDataSize = 30;
 	app.page.hasChartRendered = {}
 
+	app.page.pageData = function(){
+		var params = {};
+		app.apiRequest("getPageData", "app.page.processGetPageData", params);
+	}
+
+	app.page.processGetPageData = function(api){
+		if(api.error != "OK"){ app.showError(api.error); }
+		else{
+			$("#headerContent").html(api.pageData.header);
+			$("#footerContent").html(api.pageData.footer);
+		}
+	}
+
 	app.page.checksView = function(){
 		var params = {};
 		app.apiRequest("checksView", "app.page.processChecksView", params);
@@ -129,6 +142,7 @@
 	}
 
 	app.page.init = function(){
+		app.page.pageData();
 		app.page.checksView();
 	}
 

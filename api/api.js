@@ -9,7 +9,6 @@ function initRequires(api, next)
 	autoReloadFileInit(api, ["utils"], "./utils.js", "utils");
 	autoReloadFileInit(api, ["log"], "./logger.js", "log");
 	autoReloadFileInit(api, ["tasks"], "./tasks.js", "tasks");
-	autoReloadFileInit(api, ["cache"], "./cache.js", "cache");
 
 	next();
 }
