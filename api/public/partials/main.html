@@ -9,6 +9,7 @@
 	app.page.checks = {};
 	app.page.chartDataSize = 30;
 	app.page.hasChartRendered = {}
+	app.page.valueArrays = {}
 
 	app.page.pageData = function(){
 		var params = {};
@@ -40,6 +41,7 @@
 				app.page.timeouts[name] = frequencyInSeconds * 1000;
 				app.page.hasChartRendered[name] = false;
 				app.page.buildChartDom(api.checks[i].name);
+				app.page.valueArrays[name] = [];
 				app.page.getData(name);
 			}
 		}
@@ -105,7 +107,7 @@
 					showInLegend: true,
 					dataLabels: {
 						enabled: false
-					}
+					},
 				}
 			]
 	  	});
@@ -130,8 +132,9 @@
 					app.page.hasChartRendered[name] = true;
 				}
 				var numberSeries = app.page.charts[name].series[0];
-				var sucesses = 0;
-				var failures = 0;
+				var sucessSeries = app.page.charts[name].series[1];
+				var valueArray = app.page.valueArrays[name];
+
 				for (var i in api.check){
 					var numberSlicer = numberSeries.data.length > app.page.chartDataSize;
 					var newPointNumber = [parseInt(api.check[i].timeStamp), parseInt(api.check[i].number)];
@@ -139,21 +142,33 @@
 					if(api.check[i].timeStamp > app.page.lastTimestamps[name]){
 						app.page.lastTimestamps[name] = api.check[i].timeStamp;
 					}
-					if(api.check[i].check == true){sucesses++;}
-					if(api.check[i].check == false){failures++;}
+
+					valueArray.push(api.check[i].check);
+					if(valueArray.length > app.page.chartDataSize){valueArray.pop();}
 				}
-				var sucessSeries = app.page.charts[name].series[1];
+
+				var sucesses = 0;
+				var failures = 0;
+				for (var j in valueArray){
+					if(valueArray[j] == true){
+						sucesses++;
+					}else{
+						failures++;
+					}
+				}
+				
 				sucessSeries.setData([
 					{
 						name: "sucesses",
-						y: sucessSeries.data[0].y + sucesses,
+						y: sucesses,
 						color: "green"
 					},{
 						name: "failures",
-						y: sucessSeries.data[1].y + failures,
+						y: failures,
 						color: "red"
 					}
 				], true);
+
 				$('#currentValue_'+name).html(name+": "+api.check[i].number);
 				var avg = 0;
 				var count = 0;
