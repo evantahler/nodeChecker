@@ -32,6 +32,13 @@
 		"matcher",
 		"path",
 		"check",
-		"since"
+		"since",
+		"host",
+		"user",
+		"password",
+		"database",
+		"query",
+		"responseColumn",
+		"port"
 	]
 }
