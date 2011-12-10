@@ -103,7 +103,28 @@ I make a request to a remote server and then check that a certain string is cont
 	}
 
 
-### mySLQ (SOON)
+### mySQL
+I will query a database for you.  If the result set returns no information, I'll assume a false response.  If I return 1 row, I will use the matcher to return that value (make it numeric!).  If I return more than one row, I will return the number of rows.
+
+**True**: If I could reach the host and the response was valid
+
+**False** If something went wrong with the request
+
+	{
+		"name":"myql_log_localhost",
+		"type":"mySQL",
+		"frequencyInSeconds":2,
+		"entriesToKeep":100,
+		"params":{
+			"host": "127.0.0.1",
+			"user": "root",
+			"password": null,
+			"database": "api",
+			"query": "select count(1) as 'number' from logs",
+			"responseColumn": "number"
+		}
+	}
+
 ### Redis (SOON)
 ### APIs (json) (SOON)
 ### APIs (xml) (SOON)
