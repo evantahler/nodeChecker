@@ -63,6 +63,7 @@ function initCheckers(api, next)
 			var checkerName = file.split(".")[0];
 			var thisChecker = require("./checkers/" + file)["checker"];
 			autoReloadFileInit(api, ["checkers", thisChecker.name], ("./checkers/" + file), "checker");
+			api.apiData[thisChecker.name] = {};
 			api.log("checker loaded: " + checkerName, "yellow");
 		}
 	});
@@ -402,6 +403,7 @@ process.chdir(__dirname);
 
 var api = api = api || {}; // the api namespace.  Everything uses this.
 api.data = {}; // the main data store for the application
+api.apiData = {} // storage for each checker
 
 api.util = require("util"),
 api.exec = require('child_process').exec;
@@ -418,6 +420,7 @@ api.form = require('connect-form');
 api.async = require('async');
 api.crypto = require("crypto");
 api.consoleColors = require('colors');
+api.twitter = require('ntwitter');
 
 api.webApp = api.expressServer.createServer(
 	api.form({ keepExtensions: true })

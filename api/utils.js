@@ -133,7 +133,7 @@ utils.checkParamChecker = function(api, required_params, params, mode){
 	if(mode == null){mode = "all";}
 	if(mode == "all"){
 		required_params.forEach(function(param){
-			if(error == false && (params[param] === undefined || params[param].length == 0)){
+			if(error == false && (params[param] === undefined || (params[param] != null && params[param].length == 0))){
 				error = param + " is a required parameter for this action";
 			}
 		});

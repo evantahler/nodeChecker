@@ -43,18 +43,4 @@
 		}
 	},
 
-	{
-		"name":"tweets for google",
-		"type":"twitterStreamingSearch",
-		"frequencyInSeconds":5,
-		"entriesToKeep":100,
-		"params":{
-			"consumer_key": "",
-			"consumer_secret": "root",
-			"access_token_key": null,
-			"access_token_secret": "api",
-			"query": "apple"
-		}
-	}
-
 ]

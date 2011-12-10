@@ -34,7 +34,7 @@ checker.check = function(api, params, next){
 	response.error = false;
 	response.check = false;
 	response.number = 0;
-	response.error = api.utils.checkParamChecker(api, ["hostname"], params);
+	response.error = api.utils.checkParamChecker(api, checker.params["required"], params);
 	if(response.error == false){
 		api.exec("ping -c 5 "+params.hostname, function(error, stdout, stderr){
 			if(stdout.indexOf("0 packets received") == -1 && stdout != ['']){

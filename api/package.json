@@ -19,7 +19,8 @@
     "forever":"0.7.x",
     "connect-form":"0.2.x",
 	  "colors":"0.x.x",
-    "request":"2.x.x"
+    "request":"2.x.x",
+    "ntwitter":"0.x.x"
 	},
   "devDependencies": {}
 }

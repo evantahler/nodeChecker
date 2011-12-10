@@ -125,6 +125,27 @@ I will query a database for you.  If the result set returns no information, I'll
 		}
 	}
 
+### Twitter Streaming Search
+I will listen for tweets about your query.  This action requires an authenticated twitter user and an application.  Create one here https://dev.twitter.com/apps/new.  
+
+**True**: If I could reach the host and the response was valid
+
+**False** If something went wrong with the request
+
+	{
+		"name":"tweets_for_modcloth",
+		"type":"twitterSearch",
+		"frequencyInSeconds":60,
+		"entriesToKeep":100,
+		"params":{
+			"consumer_key": "xxx",
+			"consumer_secret": "xxx",
+			"access_token_key": "xxx",
+			"access_token_secret": "xxx",
+			"query": "modcloth"
+		}
+	}
+
 ### Redis (SOON)
 ### APIs (json) (SOON)
 ### APIs (xml) (SOON)
