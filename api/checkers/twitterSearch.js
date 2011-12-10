@@ -42,16 +42,13 @@ checker.check = function(api, params, next){
 		        		next(response);
 		        	}else{
 		        		if(api.apiData.twitterSearch.lastTweetIDs[params.query] == 0){
-		        			api.apiData.twitterSearch.lastTweetIDs[params.query] = data.max_id_str;
 		        			response.number = 0;
-		        			response.check = true;
-		        			next(response);
 		        		}else{
-		        			api.apiData.twitterSearch.lastTweetIDs[params.query] = data.max_id_str;
 		        			response.number = data.results.length;
-		        			response.check = true;
-		        			next(response);
 		        		}
+		        		api.apiData.twitterSearch.lastTweetIDs[params.query] = data.max_id_str;
+		        		response.check = true;
+		        		next(response);
 		        	}
 			    });
         	}

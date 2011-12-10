@@ -125,7 +125,7 @@ I will query a database for you.  If the result set returns no information, I'll
 		}
 	}
 
-### Twitter Streaming Search
+### Twitter Search
 I will listen for tweets about your query.  This action requires an authenticated twitter user and an application.  Create one here https://dev.twitter.com/apps/new.  
 
 **True**: If I could reach the host and the response was valid
@@ -142,6 +142,23 @@ I will listen for tweets about your query.  This action requires an authenticate
 			"consumer_secret": "xxx",
 			"access_token_key": "xxx",
 			"access_token_secret": "xxx",
+			"query": "modcloth"
+		}
+	}
+
+### Facebook Search
+I will query public posts for your query.
+
+**True**: If I could reach the host and the response was valid
+
+**False** If something went wrong with the request
+
+	{
+		"name":"facebook_for_modcloth",
+		"type":"facebookSearch",
+		"frequencyInSeconds":10,
+		"entriesToKeep":100,
+		"params":{
 			"query": "modcloth"
 		}
 	}

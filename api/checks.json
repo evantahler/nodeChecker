@@ -44,14 +44,38 @@
 	},
 
 	{
+		"name":"tweets_for_modcloth",
+		"type":"twitterSearch",
+		"frequencyInSeconds":60,
+		"entriesToKeep":100,
+		"params":{
+			"consumer_key": "xxx",
+			"consumer_secret": "xxx",
+			"access_token_key": "xxx",
+			"access_token_secret": "xxx",
+			"query": "modcloth"
+		}
+	},
+
+	{
+		"name":"facebook_for_modcloth",
+		"type":"facebookSearch",
+		"frequencyInSeconds":10,
+		"entriesToKeep":100,
+		"params":{
+			"query": "modcloth"
+		}
+	},
+
+	{
 		"name":"ga",
 		"type":"googleAnalytics",
 		"frequencyInSeconds": 3600,
 		"entriesToKeep":100,
 		"params":{
-			"password":"XXXXXXXX",
-			"user":"XXXX",
-			"profileID":"ga:XXXXXX",
+			"password":"XXX",
+			"user":"XXX",
+			"profileID":"ga:920572",
 			"start_date":"",
 			"end_date":"",
 			"trailingTimeseriesHours":1,
