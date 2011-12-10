@@ -43,4 +43,22 @@
 		}
 	},
 
+	{
+		"name":"ga",
+		"type":"googleAnalytics",
+		"frequencyInSeconds": 3600,
+		"entriesToKeep":100,
+		"params":{
+			"password":"XXXXXXXX",
+			"user":"XXXX",
+			"profileID":"ga:XXXXXX",
+			"start_date":"",
+			"end_date":"",
+			"trailingTimeseriesHours":1,
+			"dimensions":"",
+			"metrics":"ga:visitors",
+			"sort":""
+		}
+	}
+
 ]
