@@ -26,19 +26,7 @@
 		"callback",
 		"action",
 		"fileName",
-		"password",
-		"sessionKey",
-		"hostname",
-		"matcher",
-		"path",
 		"check",
-		"since",
-		"host",
-		"user",
-		"password",
-		"database",
-		"query",
-		"responseColumn",
-		"port"
+		"since"
 	]
 }

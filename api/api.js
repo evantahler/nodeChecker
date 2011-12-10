@@ -26,8 +26,11 @@ function initLogFolder(api, next)
 function initPostVariables(api, next)
 {
 	api.postVariables = api.configData.postVariables || [];
-	for(var model in api.models){
-		for(var attr in api.models[model].rawAttributes){
+	for(var check in api.checkers){
+		for(var attr in api.checkers[check].params["required"]){
+			api.postVariables.push(attr);
+		}
+		for(var attr in api.checkers[check].params["optional"]){
 			api.postVariables.push(attr);
 		}
 	}
@@ -430,9 +433,9 @@ api.stats.startTime = new Date().getTime();
 initLogFolder(api, function(){
 	initRequires(api, function(){
 		runningCheck(api, function(){
-			initPostVariables(api, function(){
+			initCheckers(api, function(){
 				initActions(api, function(){
-					initCheckers(api, function(){
+					initPostVariables(api, function(){
 						initCron(api, function(){
 							initWebListen(api, function(){
 								initSocketServerListen(api, function(){

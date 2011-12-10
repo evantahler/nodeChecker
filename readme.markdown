@@ -5,7 +5,7 @@ With this tool, you can monitor many things, visuzlie them, and receive alerts w
 
 I'm based on node.js, a number of awesome npm packages, and the nodeDave api framework.
 
-## Anatomy of a checked (you can build your own!)
+## Anatomy of a checker (you can build your own!)
 Checks live in /api/checkers/.  Their main action is checker.run, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  
 
 Every checker should return response = {} which contains:
