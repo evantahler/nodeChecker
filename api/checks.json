@@ -2,7 +2,7 @@
 	{
 		"name":"random_numbers",
 		"type":"randomNumber",
-		"frequencyInSeconds":1,
+		"frequencyInSeconds":2,
 		"entriesToKeep":100,
 		"params":{}
 	},

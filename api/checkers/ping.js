@@ -33,20 +33,24 @@ checker.check = function(api, params, next){
 	var response = {};
 	response.error = false;
 	response.check = false;
-
-	api.exec("ping -c 5 "+params.hostname, function(error, stdout, stderr){
-		if(stdout.indexOf("0 packets received") == -1 && stdout != ['']){
-			var lines = stdout.split("\n");
-			var lastLine = lines[(lines.length - 2)];
-			var avg = lastLine.split("=")[1].split("/")[1];
-			response.number = avg;
-			response.check = true;
-		}else{
-			response.number = 0;	
-			response.error = "cannot reach host "+params.hostname;
-		}
+	response.number = 0;
+	response.error = api.utils.checkParamChecker(api, ["hostname"], params);
+	if(response.error == false){
+		api.exec("ping -c 5 "+params.hostname, function(error, stdout, stderr){
+			if(stdout.indexOf("0 packets received") == -1 && stdout != ['']){
+				var lines = stdout.split("\n");
+				var lastLine = lines[(lines.length - 2)];
+				var avg = lastLine.split("=")[1].split("/")[1];
+				response.number = avg;
+				response.check = true;
+			}else{
+				response.error = "cannot reach host "+params.hostname;
+			}
+			next(response);
+		});
+	}else{
 		next(response);
-	});
+	}
 };
 
 /////////////////////////////////////////////////////////////////////

@@ -20,6 +20,7 @@
 	app.page.processGetPageData = function(api){
 		if(api.error != "OK"){ app.showError(api.error); }
 		else{
+			document.title = api.pageData.header;
 			$("#headerContent").html(api.pageData.header);
 			$("#footerContent").html(api.pageData.footer);
 		}
@@ -85,9 +86,29 @@
 			series: [
 				{
 					name: "current",
+					type: 'spline',
 					lineWidth: 3,
 					data: []
 				}, 
+				{
+					name: "sucess ratio",
+					type: 'pie',
+					data: [{
+						name: "sucesses",
+						y: 0,
+						color: "green"
+					},{
+						name: "failures",
+						y: 0,
+						color: "red"
+					}],
+					center: [40, 40],
+					size: 70,
+					showInLegend: true,
+					dataLabels: {
+						enabled: false
+					}
+				}
 			]
 	  	});
 	};
@@ -110,28 +131,41 @@
 					app.page.buildChart(app.page.checks[name]);
 					app.page.hasChartRendered[name] = true;
 				}
-				var series = app.page.charts[name].series[0];
+				var numberSeries = app.page.charts[name].series[0];
+				var sucesses = 0;
+				var failures = 0;
 				for (var i in api.check){
-					var slicer = series.data.length > app.page.chartDataSize;
-					// var date = new Date(api.check[i].timeStamp);
-					// var human_time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-					// console.log(human_time);
-					var newPoint = [parseInt(api.check[i].timeStamp), parseInt(api.check[i].number)];
-					series.addPoint(newPoint, true, slicer);
+					var numberSlicer = numberSeries.data.length > app.page.chartDataSize;
+					var newPointNumber = [parseInt(api.check[i].timeStamp), parseInt(api.check[i].number)];
+					numberSeries.addPoint(newPointNumber, true, numberSlicer);
 					if(api.check[i].timeStamp > app.page.lastTimestamps[name]){
 						app.page.lastTimestamps[name] = api.check[i].timeStamp;
 					}
+					if(api.check[i].check == true){sucesses++;}
+					if(api.check[i].check == false){failures++;}
 				}
+				var sucessSeries = app.page.charts[name].series[1];
+				sucessSeries.setData([
+					{
+						name: "sucesses",
+						y: sucessSeries.data[0].y + sucesses,
+						color: "green"
+					},{
+						name: "failures",
+						y: sucessSeries.data[1].y + failures,
+						color: "red"
+					}
+				], true);
 				$('#currentValue_'+name).html(name+": "+api.check[i].number);
 				var avg = 0;
 				var count = 0;
 				var total = 0;
 				var min = null;
 				var max = null;
-				for(var i in series.data){
-					if (series.data[i].y > max || max == null){max = series.data[i].y;}
-					if (series.data[i].y < min || min == null){min = series.data[i].y;}
-					total = total + series.data[i].y;
+				for(var i in numberSeries.data){
+					if (numberSeries.data[i].y > max || max == null){max = numberSeries.data[i].y;}
+					if (numberSeries.data[i].y < min || min == null){min = numberSeries.data[i].y;}
+					total = total + numberSeries.data[i].y;
 					count++;
 				}
 				avg = Math.round(total/count,5);
