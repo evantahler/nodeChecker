@@ -92,8 +92,7 @@ function initCheckers(api, next)
 	// load saved data 
 	try{
 		var fileData = api.fs.readFileSync(api.configData.logFolder + "/data.json",'utf8');
-		var asciiData = new Buffer(fileData, 'base64').toString('ascii');
-		api.data = JSON.parse(asciiData);
+		api.data = JSON.parse(fileData);
 		api.log("data loaded from backup file.");
 	}catch(e){
 		api.log("no data backup file found, continuing.");

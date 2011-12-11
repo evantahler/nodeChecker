@@ -8,28 +8,30 @@ tasks.Task = {
 		"name" : "generic task",
 		"desc" : "I do a thing!"
 	},
-	init: function (api, params) {
+	init: function (api, params, next) {
 		this.params = params || this.defaultParams;
 		this.api = api;
-		this.api.log("starging task: " + this.params.name, "yellow");
+		if (next != null){this.next = next;}
+		this.api.log("  starging task: " + this.params.name, "yellow");
 	},
 	end: function () {
-		this.api.log("completed task: " + this.params.name, "yellow");
+		this.api.log("  completed task: " + this.params.name, "yellow");
+		if (this.next != null){this.next();}
 	},		
 	run: function() {
-		//
+		this.api.log("RUNNING: "+this.params.name);
 	}
 };
 
 ////////////////////////////////////////////////////////////////////////////
 // ensure that log file doesn't get to big
-tasks.cleanLogFiles = function(api) {
+tasks.cleanLogFiles = function(api, next) {
 	var params = {
 		"name" : "Clean Log Files",
 		"desc" : "I will clean (delete) all log files if they get to big."
 	};
 	var task = Object.create(api.tasks.Task);
-	task.init(api, params);
+	task.init(api, params, next);
 	task.run = function() {
 		var logs = [
 			(api.configData.logFolder + "/" + api.configData.logFile)
@@ -46,35 +48,36 @@ tasks.cleanLogFiles = function(api) {
 						api.fs.unlinkSync(log);
 					}
 				}
+				task.end();
 			});
 		});
 	};
-	process.nextTick(function() { task.run(); });
-	process.nextTick(function() { task.end(); });
+	//
+	task.run();
 };
 
 ////////////////////////////////////////////////////////////////////////////
 // save the data object
-tasks.saveData = function(api) {
+tasks.saveData = function(api, next) {
 	var params = {
 		"name" : "Save Data Object",
 		"desc" : "I will save the data object to a file to load later if needed"
 	};
 	var task = Object.create(api.tasks.Task);
-	task.init(api, params);
+	task.init(api, params, next);
 	task.run = function() {
-		if(api.dataWriter == null){
-			api.dataWriter = api.fs.createWriteStream((api.configData.logFolder + "/data.json"), {flags:"w"})
-		}
 		try{
-			var encodedData = new Buffer(JSON.stringify(api.data)).toString('base64')
-			api.dataWriter.write(encodedData);
+			fs = api.fs.createWriteStream((api.configData.logFolder + "/data.json"), {flags:"w"})
+			var encodedData = new Buffer(JSON.stringify(api.data)).toString('utf8')
+			fs.write(encodedData);
+			fs.end();
+			task.end();
 		}catch(e){
 			console.log(" !!! Error writing to datalogFolder file: " + e);
+			task.end();
 		}
 	};
-	process.nextTick(function() { task.run(); });
-	process.nextTick(function() { task.end(); });
+	task.run();
 };
 
 ////////////////////////////////////////////////////////////////////////////
