@@ -1,12 +1,12 @@
 # nodeChecker
 
 ## What?
-With this tool, you can monitor many things, visuzlie them, and receive alerts when something goes wrong.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitory your production environment.  
+With this tool, you can monitor many things and visualize them.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
 
-I'm based on node.js, a number of awesome npm packages, and the nodeDave api framework.
+I'm based on node.js, a number of awesome npm packages, HiCharts, and the nodeDave api framework.
 
 ## Anatomy of a checker (you can build your own!)
-Checks live in /api/checkers/.  Their main action is checker.run, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  
+Checks live in /api/checkers/.  Their main action is `checker.run`, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  Be sure that your file name and `checker.name` match.
 
 Every checker should return response = {} which contains:
 
@@ -39,7 +39,7 @@ Here is a simple example:
 	exports.checker = checker;
 
 ## Supported Checks
-Checks are defined in checks.js as an array of what you would like the application to check for.  Every check contains:
+Checks are defined in `checks.js` as an array of what you would like the application to check for.  Every check contains:
 
 * name
 * type
@@ -59,6 +59,7 @@ This is a simple example check
 **False** never
 
 **Example Configuration**
+
 	{
 		"name":"random_numbers",
 		"type":"randomNumber",
@@ -73,6 +74,8 @@ I will spawn a new thread and use the system call for "ping" 5 times and return 
 **True**: If the ping was able to reach the host
 
 **False** If something went wrong with the ping request
+
+**Example Configuration**
 
 	{
 		"name":"ping_google_com",
@@ -90,6 +93,8 @@ I make a request to a remote server and then check that a certain string is cont
 **True**: If I could reach the host and the response contained the string
 
 **False** If something went wrong with the request
+
+**Example Configuration**
 
 	{
 		"name":"http_google_com",
@@ -109,6 +114,8 @@ I will query a database for you.  If the result set returns no information, I'll
 **True**: If I could reach the host and the response was valid
 
 **False** If something went wrong with the request
+
+**Example Configuration**
 
 	{
 		"name":"myql_log_localhost",
@@ -132,6 +139,8 @@ I will listen for tweets about your query.  This action requires an authenticate
 
 **False** If something went wrong with the request
 
+**Example Configuration**
+
 	{
 		"name":"tweets_for_modcloth",
 		"type":"twitterSearch",
@@ -153,6 +162,8 @@ I will query public posts for your query.
 
 **False** If something went wrong with the request
 
+**Example Configuration**
+
 	{
 		"name":"facebook_for_modcloth",
 		"type":"facebookSearch",
@@ -169,6 +180,8 @@ I will retrieve information from Google Analytics.  You can provide a fixed star
 **True**: If I could reach Google Analytics and retrieve information
 
 **False** If something went wrong with the request
+
+**Example Configuration**
 
 	{
 		"name":"ga",
