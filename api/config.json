@@ -18,7 +18,7 @@
 	"logRequests" : true,
 	
 	"cronProcess" : true,
-	"cronTimeInterval" : 60000,
+	"cronTimeInterval" : 30000,
 
 	"flatFileDirectory" : "./public/",
 

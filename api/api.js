@@ -89,9 +89,20 @@ function initCheckers(api, next)
 		}
 	}
 
+	// load saved data 
+	try{
+		var fileData = api.fs.readFileSync(api.configData.logFolder + "/data.json",'utf8');
+		var asciiData = new Buffer(fileData, 'base64').toString('ascii');
+		api.data = JSON.parse(asciiData);
+		api.log("data loaded from backup file.");
+	}catch(e){
+		api.log(e, "red");
+		api.log("no data backup file found, continuing.");
+	}
+
 	api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
 	api.checks.forEach(function(check){
-		api.data[check.name] = [];
+		if(api.data[check.name] == null){ api.data[check.name] = []; }
 		process.nextTick(function() { api.runCheck(api, check) });
 		api.log("loaded check: "+check.name, "magenta");
 	});

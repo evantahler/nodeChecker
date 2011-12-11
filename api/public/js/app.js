@@ -10,8 +10,6 @@ app.partialMap = {
 	"header" : "/file/partials/header.html",
 	"footer" : "/file/partials/footer.html",
 	"main" : "/file/partials/main.html",
-	"home" : "/file/partials/home.html",
-	"about" : "/file/partials/about.html",
 };
 
 $(document).ready(function(){

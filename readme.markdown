@@ -163,6 +163,31 @@ I will query public posts for your query.
 		}
 	}
 
+### Google Analytics
+I will retrieve information from Google Analytics.  You can provide a fixed start and end time, or the optional parameter of 'trailingTimeseriesHours' which will retrieve information from now back N hours.
+
+**True**: If I could reach Google Analytics and retrieve information
+
+**False** If something went wrong with the request
+
+	{
+		"name":"ga",
+		"type":"googleAnalytics",
+		"frequencyInSeconds": 3600,
+		"entriesToKeep":100,
+		"params":{
+			"password":"XXX",
+			"user":"XXX",
+			"profileID":"ga:12334",
+			"start_date":"",
+			"end_date":"",
+			"trailingTimeseriesHours":1,
+			"dimensions":"",
+			"metrics":"ga:visitors",
+			"sort":""
+		}
+	}
+
 ### Redis (SOON)
 ### APIs (json) (SOON)
 ### APIs (xml) (SOON)

@@ -10,6 +10,8 @@
 	app.page.chartDataSize = 30;
 	app.page.hasChartRendered = {}
 	app.page.valueArrays = {}
+	app.page.timers = [];
+	app.page.singleChart = null;
 
 	app.page.pageData = function(){
 		var params = {};
@@ -22,6 +24,42 @@
 			document.title = api.pageData.header;
 			$("#headerContent").html(api.pageData.header);
 			$("#footerContent").html(api.pageData.footer);
+		}
+	}
+
+	app.page.showSingleChart = function(name){
+		for(var i in app.page.timers){
+			clearTimeout(app.page.timers[i]);
+		}
+		$(".checkContainer").hide();
+		var container = $("#container_"+name);
+		container.show();
+		container.height("100%");
+		container.width("100%");
+
+		var chartContainer = $("#chart_"+name);
+		container.show();
+		chartContainer.height("100%");
+		chartContainer.width("100%");
+
+		$("#viewBigger_"+name).hide();
+		$("#viewAll_"+name).show();
+		app.page.getData(name);
+	}
+
+	app.page.showAllCharts = function(){
+		$(".checkContainer").show();
+		for(var i in app.page.timers){
+			clearTimeout(app.page.timers[i]);
+		}
+		for (var i in app.page.checks){
+			var name = app.page.checks[i].name;
+			var container = $("#container_"+name);
+			container.height("400px");
+			container.width("500px");
+			$("#viewBigger_"+name).show();
+			$("#viewAll_"+name).hide();
+			app.page.getData(name);
 		}
 	}
 
@@ -51,12 +89,16 @@
 		if($("#chart_" + name).length < 1){
 			var html = $("#chartHolder").html();
 			if(html == 'Loading...'){html = "";}
-			html += '<div class="checkContainer">';
+			html += '<div class="checkContainer" id="container_'+name+'">';
 			html += '<h1 id="currentValue_'+name+'">#</h1>';
 			html += '<div class="greenH1" id="avgValue_'+name+'">#</div>';
 			html += '<div id="chart_'+name+'" style="width: 100%; height: 300px"></div>';
+			html += "<br />";
+			html += '<div id="viewBigger_'+name+'" onclick="app.page.showSingleChart(\''+name+'\')">View bigger...</div>'
+			html += '<div id="viewAll_'+name+'" onclick="app.page.showAllCharts()">Show All...</div>'
 			html += '</div>';
 			$("#chartHolder").html(html);
+			$("#viewAll_"+name).hide();
 		}
 	}
 
@@ -144,7 +186,7 @@
 					}
 
 					valueArray.push(api.check[i].check);
-					if(valueArray.length > app.page.chartDataSize){valueArray.pop();}
+					if(valueArray.length > app.page.chartDataSize){valueArray.shift();}
 				}
 
 				var sucesses = 0;
@@ -184,7 +226,7 @@
 				avg = Math.round(total/count,5);
 				$("#avgValue_"+name).html("Min: "+min+" | Max: "+max+" | Avg: "+avg);
 			}
-			setTimeout(app.page.getData, app.page.timeouts[name], name);
+			app.page.timers.push(setTimeout(app.page.getData, app.page.timeouts[name], name));
 		}
 	}
 

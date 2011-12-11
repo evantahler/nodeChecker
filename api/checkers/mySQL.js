@@ -16,6 +16,10 @@ checker.params = {
 };
 
 checker.check = function(api, params, next){
+	if (typeof api.apiData.mySQL.connections === 'undefined'){
+		api.apiData.mySQL.connections = {};
+	}
+
 	var response = {};
 	response.error = false;
 	response.check = false;
@@ -24,13 +28,18 @@ checker.check = function(api, params, next){
 	response.error = api.utils.checkParamChecker(api, checker.params["required"], params);
 	if(response.error == false){
 		try{
-			var client = api.mysql.createClient({
-			  host: params.host,
-			  port: params.port,
-			  user: params.user,
-			  password: params.password,
-			  database: params.database,
-			});
+
+			if(api.apiData.twitterSearch.lastTweetIDs[params.query] == null){
+				api.apiData.twitterSearch.lastTweetIDs[params.query] = api.mysql.createClient({
+				  host: params.host,
+				  port: params.port,
+				  user: params.user,
+				  password: params.password,
+				  database: params.database,
+				});
+			}
+			
+			var client = api.apiData.twitterSearch.lastTweetIDs[params.query];
 
 			client.query('USE '+params.database, function(err) {
 			  if (err) {

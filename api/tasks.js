@@ -54,5 +54,29 @@ tasks.cleanLogFiles = function(api) {
 };
 
 ////////////////////////////////////////////////////////////////////////////
+// save the data object
+tasks.saveData = function(api) {
+	var params = {
+		"name" : "Save Data Object",
+		"desc" : "I will save the data object to a file to load later if needed"
+	};
+	var task = Object.create(api.tasks.Task);
+	task.init(api, params);
+	task.run = function() {
+		if(api.dataWriter == null){
+			api.dataWriter = api.fs.createWriteStream((api.configData.logFolder + "/data.json"), {flags:"w"})
+		}
+		try{
+			var encodedData = new Buffer(JSON.stringify(api.data)).toString('base64')
+			api.dataWriter.write(encodedData);
+		}catch(e){
+			console.log(" !!! Error writing to datalogFolder file: " + e);
+		}
+	};
+	process.nextTick(function() { task.run(); });
+	process.nextTick(function() { task.end(); });
+};
+
+////////////////////////////////////////////////////////////////////////////
 // Export
 exports.tasks = tasks;

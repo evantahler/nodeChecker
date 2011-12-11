@@ -22,7 +22,6 @@ checker.check = function(api, params, next){
 	if(response.error == false){
 		if(api.apiData.facebookSearch.lastTimestamps[params.query] == null){api.apiData.facebookSearch.lastTimestamps[params.query] = 0;}
 		var url = "https://graph.facebook.com/search?q=" + params.query + "&since=" + api.apiData.facebookSearch.lastTimestamps[params.query];
-		console.log(url);
 		api.request(url, function (error, httpResponse, body) {
 		  if (!error && httpResponse.statusCode == 200) {
 		    var fb = JSON.parse(body);

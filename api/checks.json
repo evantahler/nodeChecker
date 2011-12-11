@@ -65,24 +65,6 @@
 		"params":{
 			"query": "modcloth"
 		}
-	},
-
-	{
-		"name":"ga",
-		"type":"googleAnalytics",
-		"frequencyInSeconds": 3600,
-		"entriesToKeep":100,
-		"params":{
-			"password":"XXX",
-			"user":"XXX",
-			"profileID":"ga:920572",
-			"start_date":"",
-			"end_date":"",
-			"trailingTimeseriesHours":1,
-			"dimensions":"",
-			"metrics":"ga:visitors",
-			"sort":""
-		}
 	}
 
 ]
