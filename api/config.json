@@ -21,6 +21,8 @@
 	"cronTimeInterval" : 30000,
 
 	"flatFileDirectory" : "./public/",
+	"flatFileNotFoundMessage" : "Sorry, that file is not found :(",
+	"flatFileIndexPageNotFoundMessage" : "Sorry, there is no index page for this folder :(",
 
 	"postVariables" : [
 		"callback",
