@@ -96,8 +96,8 @@ function initCheckers(api, next)
 		api.data = JSON.parse(asciiData);
 		api.log("data loaded from backup file.");
 	}catch(e){
-		api.log(e, "red");
 		api.log("no data backup file found, continuing.");
+		api.log(" > "+e);
 	}
 
 	api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
