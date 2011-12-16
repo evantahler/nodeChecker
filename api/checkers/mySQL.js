@@ -29,8 +29,8 @@ checker.check = function(api, params, next){
 	if(response.error == false){
 		try{
 
-			if(api.apiData.twitterSearch.lastTweetIDs[params.query] == null){
-				api.apiData.twitterSearch.lastTweetIDs[params.query] = api.mysql.createClient({
+			if(api.apiData.mySQL.connections[params.query] == null){
+				api.apiData.mySQL.connections[params.query] = api.mysql.createClient({
 				  host: params.host,
 				  port: params.port,
 				  user: params.user,
@@ -39,7 +39,7 @@ checker.check = function(api, params, next){
 				});
 			}
 			
-			var client = api.apiData.twitterSearch.lastTweetIDs[params.query];
+			var client = api.apiData.mySQL.connections[params.query];
 
 			client.query('USE '+params.database, function(err) {
 			  if (err) {
