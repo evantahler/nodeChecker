@@ -11,7 +11,7 @@ function initCheckers(api, next)
 	/////////////////////////////////////////////////////////////////////////////////////
 	// the actual check
 	api.runCheck = function(api, check){
-		// try{
+		try{
 			var startTime = new Date().getTime();
 			api.checkers[check.type].check(api, check.params, function(response){
 				response.timeStamp = new Date().getTime();
@@ -24,11 +24,11 @@ function initCheckers(api, next)
 				api.log("checked -> "+check.name+":"+check.type+" in "+requestDurationSeconds+"s", "magenta");
 				setTimeout(api.runCheck, (check.frequencyInSeconds * 1000), api, check);
 			});
-		// }catch(e){
-			// api.log(e, "red");
-			// api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
-			// api.log(" > "+check.name+" will not be processed", "red");
-		// }
+		}catch(e){
+			api.log(e, "red");
+			api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
+			api.log(" > "+check.name+" will not be processed", "red");
+		}
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
