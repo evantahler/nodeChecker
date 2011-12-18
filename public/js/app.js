@@ -19,19 +19,14 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////////
 
 app.init = function(){
-	$('#header > .container').load('partials/header.html');
-	$('#footer > .container').load('partials/footer.html');
-	
-	//window.onpopstate = function () {
-		var partial = window.location.hash.split('/')[0].replace(/#/gm,"");
+	var partial = window.location.hash.split('/')[0].replace(/#/gm,"");
 
-		if (partial != '') {
-			partial = (partial == '')? 'main' : partial;
-			app.partialChange('#main', partial);
-		} else {
-			app.partialChange('#main', 'main');
-		}
-	//};
+	if (partial != '') {
+		partial = (partial == '')? 'main' : partial;
+		app.partialChange('#main', partial);
+	} else {
+		app.partialChange('#main', 'main');
+	}
 };
 
 app.getPageArguments = function() {

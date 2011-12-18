@@ -1,0 +1,20 @@
+{
+  "author": "Evan Tahler <evan@evantahler.com>",
+  "name": "nodeChecker",
+  "description": "a small web app to check and chart various reponses",
+  "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/evantahler/nodeChecker"
+  },
+  "main": "nodeChecker",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "dependencies": {
+    "nodeDaveAPI":"x",
+    "ntwitter":"0.x.x",
+    "soupselect": ">=0.1.0",
+    "htmlparser": ">=1.6.2"
+	},
+  "devDependencies": {}
+}

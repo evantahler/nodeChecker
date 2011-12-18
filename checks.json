@@ -37,7 +37,7 @@
 			"host": "127.0.0.1",
 			"user": "root",
 			"password": null,
-			"database": "api",
+			"database": "node_dave_api",
 			"query": "select count(1) as 'number' from logs",
 			"responseColumn": "number"
 		}

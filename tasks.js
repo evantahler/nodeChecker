@@ -73,7 +73,7 @@ tasks.saveData = function(api, next) {
 			fs.end();
 			task.end();
 		}catch(e){
-			console.log(" !!! Error writing to datalogFolder file: " + e);
+			api.log("Error writing to datalogFolder file: " + e, "red");
 			task.end();
 		}
 	};

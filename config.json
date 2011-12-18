@@ -1,16 +1,13 @@
 {
     "apiVerson" : 1,
-
-    "header":"Node Checker!",
-    "footer":"<a href=\"https://github.com/evantahler/nodeChecker\">nodeChecker</a>.  A project by <a href=\"http://twitter.com/gordomandoza\">@gordomandoza</a>",
 	
 	"serverAddress" : "127.0.0.1",
 	"webServerPort" : 8080,
 	"socketServerPort" : 5000,
-	"serverName" : "daveAPIServer",
-	"socketServerWelcomeMessage" : "Hello! Welcome to the daveNodeApi server",
+	"serverName" : "nodeChecker",
+	"socketServerWelcomeMessage" : "Hello! Welcome to the nodeChecker server",
 	
-	"logging" : "true",
+	"logging" : true,
 	"logFolder" : "./log/",
 	"logFile" : "api.log",
 	"maxLogFileSize" : "10485760",
