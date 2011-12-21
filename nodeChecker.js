@@ -98,8 +98,8 @@ function initCheckers(api, next)
 /////////////////////////////////////////////////////////////////////////////////////
 // GO!
 
-var nodeDaveAPI = require("nodeDaveAPI").nodeDaveAPI;
-nodeDaveAPI.start({}, function(api){
+var actionHero = require("actionHero").actionHero;
+actionHero.start({}, function(api){
 	initCheckers(api, function(){
 		api.log("Loading complete!", ['green', 'bold']);
 	});
