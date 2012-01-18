@@ -6,6 +6,11 @@
 	"socketServerPort" : 5000,
 	"serverName" : "nodeChecker",
 	"socketServerWelcomeMessage" : "Hello! Welcome to the nodeChecker server",
+	"apiBaseDir" : "./node_modules/actionHero/",
+	
+	"urlPathForActions" : "api",
+	"urlPathForFiles" : "file",
+	"rootEndpointType" : "api",
 	
 	"logging" : true,
 	"logFolder" : "./log/",
@@ -20,12 +25,16 @@
 	"flatFileDirectory" : "./public/",
 	"flatFileNotFoundMessage" : "Sorry, that file is not found :(",
 	"flatFileIndexPageNotFoundMessage" : "Sorry, there is no index page for this folder :(",
+	
+	"sessionDurationMinutes" : 1440,
 
-	"postVariables" : [
-		"callback",
-		"action",
-		"fileName",
-		"check",
-		"since"
-	]
+	"cache" : {
+		"defaultExpireTimeSeconds" : 3600
+	},
+
+	"defaultSocketRoom": "defaultRoom",
+
+	"apiRequestLimitPerHour" : 1000,
+	"defaultLimit" : 100,
+	"defaultOffset" : 0
 }

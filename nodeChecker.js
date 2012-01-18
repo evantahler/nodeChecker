@@ -3,11 +3,11 @@ function initCheckers(api, next)
 	api.data = {}; // cache for check resposonses
 	api.apiData = {}; // cache for random checker varaible storage
 	api.checkers = {}; // list of checkers (like actions)
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// new modules
 	api.twitter = require('ntwitter');
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// the actual check
 	api.runCheck = function(api, check){
@@ -30,7 +30,7 @@ function initCheckers(api, next)
 			api.log(" > "+check.name+" will not be processed", "red");
 		}
 	}
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// add a util for param sanitization
 	api.utils.checkParamChecker = function(api, required_params, params, mode){
@@ -60,7 +60,7 @@ function initCheckers(api, next)
 		}
 		return error;
 	}
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Load checlers
 	api.fs.readdirSync("./checkers").forEach( function(file) {
@@ -71,7 +71,7 @@ function initCheckers(api, next)
 			api.log("checker loaded: " + checkerName, "yellow");
 		}
 	});
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// Load saved data if it exists
 	try{
@@ -82,7 +82,7 @@ function initCheckers(api, next)
 		api.log("no data backup file found, continuing.");
 		api.log(" > "+e);
 	}
-
+	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// load and run checks!
 	api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));

@@ -21,7 +21,6 @@
 	app.page.processGetPageData = function(api){
 		if(api.error != "OK"){ app.showError(api.error); }
 		else{
-			document.title = api.pageData.header;
 			$("#headerContent").html(api.pageData.header);
 			$("#footerContent").html(api.pageData.footer);
 		}

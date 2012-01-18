@@ -49,16 +49,22 @@ checker.check = function(api, params, next){
 			    next(response);
 			  }else{
 			  	client.query(params.query, function(err, results, fields){
-			  		if(results.length > 1){
-			  			response.check = true;
-			  			response.number = results.length;
-			  		}else if(results.length < 1){
-			  			response.check = false;
-			  			response.number = 0;
-			  		}else{
-			  			response.check = true;
-			  			response.number = results[0][params.responseColumn];
-			  		}
+					if (err) {
+						response.number = 0;
+					  	console.log(err.message);
+					  	response.error = err.message;
+					}else{
+				  		if(results.length > 1){
+				  			response.check = true;
+				  			response.number = results.length;
+				  		}else if(results.length < 1){
+				  			response.check = false;
+				  			response.number = 0;
+				  		}else{
+				  			response.check = true;
+				  			response.number = results[0][params.responseColumn];
+				  		}
+					}
 			  		next(response);
 			  	});
 			  }
