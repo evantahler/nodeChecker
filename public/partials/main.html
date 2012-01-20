@@ -223,7 +223,7 @@
 					count++;
 				}
 				avg = Math.round(total/count,5);
-				$("#avgValue_"+name).html("Min: "+min+" | Max: "+max+" | Avg: "+avg);
+				$("#avgValue_"+name).html("Min: "+min+" | Max: "+max+" | Avg: "+avg+" @ "+api.checkData.frequencyInSeconds+"s");
 			}
 			app.page.timers.push(setTimeout(app.page.getData, app.page.timeouts[name], name));
 		}
