@@ -1,9 +1,10 @@
 // I am a collection of useful scripts...
 
 var app = app || {};
+var apiURL = "http://" + window.location.host;
 
 app.config = {
-	"apiURL" : "http://127.0.0.1:8080/",
+	"apiURL" : apiURL,
 };
 
 app.partialMap = {

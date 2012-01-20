@@ -58,6 +58,7 @@ checker.check = function(api, params, next){
 				  			response.check = true;
 				  			response.number = results.length;
 				  		}else if(results.length < 1){
+							console.log("no results!");
 				  			response.check = false;
 				  			response.number = 0;
 				  		}else{

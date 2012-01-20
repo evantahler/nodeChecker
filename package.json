@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "actionHero":"x",
+	"mysql":"x",
     "ntwitter":"0.x.x",
     "soupselect": ">=0.1.0",
     "htmlparser": ">=1.6.2"
