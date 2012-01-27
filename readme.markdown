@@ -3,7 +3,7 @@
 ## What?
 With this tool, you can monitor many things and visualize them.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
 
-I'm based on node.js, a number of awesome npm packages, HiCharts, and the nodeDave api framework.
+I'm based on node.js, a number of awesome npm packages, HiCharts, and the actionHero api framework.
 
 ## Anatomy of a checker (you can build your own!)
 Checks live in /api/checkers/.  Their main action is `checker.run`, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  Be sure that your file name and `checker.name` match.
