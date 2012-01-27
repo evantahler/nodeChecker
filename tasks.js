@@ -20,6 +20,9 @@ tasks.Task = {
 	},		
 	run: function() {
 		this.api.log("RUNNING: "+this.params.name);
+	},
+	log: function(message){
+		this.api.log(" >> " + this.params.name + " | " + message, "yellow");
 	}
 };
 

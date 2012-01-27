@@ -92,7 +92,7 @@ function initCheckers(api, next)
 		process.nextTick(function() { api.runCheck(api, check) });
 		api.log("loaded check: "+check.name, "magenta");
 	});
-
+	
 	next();
 }
 

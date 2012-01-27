@@ -1,35 +1,46 @@
 {
-    "apiVerson" : 1,
-	
-	"serverAddress" : "127.0.0.1",
+    "apiVerson" : "0.2.1",
 	"webServerPort" : 8080,
 	"socketServerPort" : 5000,
-	"serverName" : "nodeChecker",
-	"socketServerWelcomeMessage" : "Hello! Welcome to the nodeChecker server",
+	"serverName" : "actionHero API",
+	"socketServerWelcomeMessage" : "Hello! Welcome to the actionHero api",
 	"apiBaseDir" : "./node_modules/actionHero/",
-	
+
 	"urlPathForActions" : "api",
 	"urlPathForFiles" : "file",
 	"rootEndpointType" : "api",
-	
+
 	"logging" : true,
 	"logFolder" : "./log/",
 	"logFile" : "api.log",
 	"maxLogFileSize" : "10485760",
 	"logTable" : "log",
 	"logRequests" : true,
-	
+
 	"cronProcess" : true,
 	"cronTimeInterval" : 30000,
+
+	"actionCluster": {
+		"Key" : "4ijhaijhm43yjnawhja43jaj",
+		"ReConnectToLostPeersMS" : 1000,
+		"CycleCheckTimeMS" : 100,
+		"remoteTimeoutWaitMS" : 10000,
+		"nodeDuplication" : 2,
+		"StartingPeer" : {
+			"host": null,
+			"port": null
+		}
+	},
+
+    "database" : null,
 
 	"flatFileDirectory" : "./public/",
 	"flatFileNotFoundMessage" : "Sorry, that file is not found :(",
 	"flatFileIndexPageNotFoundMessage" : "Sorry, there is no index page for this folder :(",
-	
-	"sessionDurationMinutes" : 1440,
 
 	"cache" : {
-		"defaultExpireTimeSeconds" : 3600
+		"defaultExpireTimeSeconds" : 3600,
+		"maxMemoryBytes" : 524288000
 	},
 
 	"defaultSocketRoom": "defaultRoom",
