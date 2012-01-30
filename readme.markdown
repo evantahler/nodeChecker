@@ -38,6 +38,63 @@ Once your nodeChecker is up and running, you can access your data in a few ways:
 	* ` telnet localhost 5000` is the default way to connect, and then `roomChange all` to start getting all the messages
 	* Socket users can always use the actions described above as well.
 
+Here is an example of what looking at nodeChecker in the browser looks like:
+
+![image](https://raw.github.com/evantahler/nodeChecker/master/nodeChecker.jpg)
+
+Here is an example of the API response for a check:
+
+	{ "check" : [ { "check" : true,
+	        "error" : false,
+	        "number" : 16.587660275399685,
+	        "timeStamp" : 1327903735964
+	      },
+
+	     ...
+
+	      { "check" : true,
+	        "error" : false,
+	        "number" : 76.66981285437942,
+	        "timeStamp" : 1327903747976
+	      }
+	    ],
+	  "checkData" : { "check" : "random_numbers",
+	      "entriesToKeep" : 100,
+	      "frequencyInSeconds" : 2,
+	      "params" : "*",
+	      "type" : "randomNumber"
+	    },
+	  "error" : "OK",
+	  "requestorInformation" : { "RequestsRemaining" : 998,
+	      "recievedParams" : { "action" : "getData",
+	          "check" : "random_numbers",
+	          "limit" : 100,
+	          "offset" : 0,
+	          "since" : "1327903733963"
+	        },
+	      "remoteAddress" : "127.0.0.1"
+	    },
+	  "serverInformation" : { "apiVerson" : "0.2.1",
+	      "requestDuration" : 0,
+	      "serverName" : "actionHero API"
+	    }
+	}
+
+Here is exemplar output of a socket session:
+
+	> telnet localhost 5000
+	Trying ::1...
+	telnet: connect to address ::1: Connection refused
+	Trying 127.0.0.1...
+	Connected to localhost.
+	Escape character is '^]'.
+	{"welcome":"Hello! Welcome to the actionHero api","room":"defaultRoom","context":"api","messageCount":0}
+	roomChange all
+	{"context":"response","status":"OK","room":"all","messageCount":1}
+	{"message":{"context":"check","type":"randomNumber","name":"random_numbers","number":29.169288533739746,"error":false,"check":true,"serverTime":"2012-01-30T06:06:59.904Z"},"from":1,"context":"user","messageCount":2}
+	{"context":"api","status":"keep-alive","serverTime":"2012-01-30T06:07:01.740Z","messageCount":3}
+	{"message":{"context":"check","type":"randomNumber","name":"random_numbers","number":0.4900504369288683,"error":false,"check":true,"serverTime":"2012-01-30T06:07:01.905Z"},"from":1,"context":"user","messageCount":4}
+
 ## Anatomy of a checker (you can build your own!)
 Checks live in /api/checkers/.  Their main action is `checker.run`, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  Be sure that your file name and `checker.name` match.
 
