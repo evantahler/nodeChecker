@@ -116,12 +116,19 @@ function initCheckers(api, next)
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// load and run checks!
-	api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
+	try{
+		api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
+	}catch(e){
+		api.log("No data found in checks.js, loading defualts from defaultChecks.json");
+		api.checks = JSON.parse(api.fs.readFileSync('defaultChecks.json','utf8'));
+	}
 	api.checks.forEach(function(check){
 		if(api.data[check.name] == null){ api.data[check.name] = []; }
 		process.nextTick(function() { api.runCheck(api, check) });
 		api.log("loaded check: "+check.name, "magenta");
 	});
+	
+	
 	
 	next();
 }
