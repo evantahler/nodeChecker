@@ -255,8 +255,10 @@ I will connect via SSH and run a command on the remote machine.  The response of
 		}
 	}
 
-The regex listed above is used to parse a `df` output that looks like the following to obtain the % dim free on the xvda1 drive:
+The regex listed above is used to parse a `df` output that looks like the following to obtain the % disk free on the xvda1 drive:
 
 	Filesystem           1K-blocks      Used Available Use% Mounted on
 	/dev/xvda1             8256952   1407440   6765640  18% /
 	tmpfs                   305624         0    305624   0% /dev/shm
+
+In this case, the number returned by nodeChecker would be `18`.
