@@ -8,12 +8,12 @@
   },
   "main": "nodeChecker",
   "engines": {
-    "node": "0.6.x"
+    "node": ">=0.6.x"
   },
   "dependencies": {
     "actionHero":"x",
 	"mysql":"x",
-    "ntwitter":"0.x.x",
+    "ntwitter":">=0.x.x",
     "soupselect": ">=0.1.0",
     "htmlparser": ">=1.6.2"
 	},

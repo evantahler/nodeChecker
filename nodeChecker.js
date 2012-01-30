@@ -22,6 +22,7 @@ function initCheckers(api, next)
 					D.shift();
 				}
 				var requestDurationSeconds = (response.timeStamp - startTime)/1000;
+				api.sendSocketCheckResuts(check, response);
 				api.log("checked -> "+check.name+":"+check.type+" in "+requestDurationSeconds+"s", "magenta");
 				setTimeout(api.runCheck, (check.frequencyInSeconds * 1000), api, check);
 			});
@@ -30,6 +31,35 @@ function initCheckers(api, next)
 			api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
 			api.log(" > "+check.name+" will not be processed", "red");
 		}
+	}
+	
+	/////////////////////////////////////////////////////////////////////////////////////
+	// send socket people a message 
+	api.sendSocketCheckResuts = function(check, response){
+
+		var message = {
+			context: "check",
+			type: check.type,
+			requestDurationSeconds: check.requestDurationSeconds,
+			name: check.name,
+			number: response.number,
+			error: response.error,
+			check: response.check,
+			serverTime: new Date()
+		};
+		
+		var connection = {
+			id: 1,
+			type: "socket",
+			room: check.name,
+			messageCount: 0,
+			public: {id: 1 }
+		}
+		
+		api.socketServer.socketRoomBroadcast(api, connection, message);
+		
+		connection.room = "all";
+		api.socketServer.socketRoomBroadcast(api, connection, message);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +93,7 @@ function initCheckers(api, next)
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////
-	// Load checlers
+	// Load checkers
 	api.fs.readdirSync("./checkers").forEach( function(file) {
 		if (file != ".DS_Store"){
 			var checkerName = file.split(".")[0];

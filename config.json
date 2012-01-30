@@ -21,7 +21,7 @@
 	"cronTimeInterval" : 30000,
 
 	"actionCluster": {
-		"Key" : "4ijhaijhm43yjnawhja43jaj",
+		"Key" : "nodeChecker",
 		"ReConnectToLostPeersMS" : 1000,
 		"CycleCheckTimeMS" : 100,
 		"remoteTimeoutWaitMS" : 10000,

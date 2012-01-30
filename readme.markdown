@@ -3,7 +3,7 @@
 ## What?
 With this tool, you can monitor many things and visualize them.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
 
-nodeChecker will sample your sources and make the data acquired available in charts viewable in the browser, or exposed via JSON api.
+nodeChecker will sample your sources and make the data acquired available in charts viewable in the browser, pushed to any connected socket users, or exposed via HTTP JSON api.
 
 I'm based on node.js, a number of awesome npm packages, HiCharts, and the [actionHero](https://github.com/evantahler/actionHero) api framework.
 
@@ -33,6 +33,10 @@ Once your nodeChecker is up and running, you can access your data in a few ways:
 	* `since` is an optional parameter which will show you only data newer than the timestamp (ms) provided.
 	* `callback` is optional if accessing the API via JSON-p and will wrap the response in the callback function provided
 	* Example: `http://localhost:8080/?action=getData&callback=app.page.processGetData&check=random_numbers&since=1327900579981`
+* Socket
+	* The checks you are pushed is based on the room you are in.  The `all` room will get all check results, otherwise you can join the room for the name of the check, i.e. `roomChange random_numbers`
+	* ` telnet localhost 5000` is the default way to connect, and then `roomChange all` to start getting all the messages
+	* Socket users can always use the actions described above as well.
 
 ## Anatomy of a checker (you can build your own!)
 Checks live in /api/checkers/.  Their main action is `checker.run`, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  Be sure that your file name and `checker.name` match.
