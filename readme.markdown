@@ -25,6 +25,7 @@ Once your nodeChecker is up and running, you can access your data in a few ways:
 
 * Charts in the browser: You can visit the running application {tool}/file/ to see your data live.  
 	* The default URL would be `http://localhost:8080/file`
+	* Check results will be shown as a blue line (x: time, y: number) and the pie chart represents successful checks.  Some checks may report a "0" for a failed check, and this will help you differentiate. 
 	* You can update this URL in `config.json`
 * API
 	* Thanks to the actionHero framework, your chart data can always be viewed and accessed via API.  The action to use to for this is `getData` and accepts the parameters `check`, `callback` and `since`
