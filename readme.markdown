@@ -3,7 +3,36 @@
 ## What?
 With this tool, you can monitor many things and visualize them.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
 
-I'm based on node.js, a number of awesome npm packages, HiCharts, and the actionHero api framework.
+nodeChecker will sample your sources and make the data acquired available in charts viewable in the browser, or exposed via JSON api.
+
+I'm based on node.js, a number of awesome npm packages, HiCharts, and the [actionHero](https://github.com/evantahler/actionHero) api framework.
+
+## Getting Started
+nodeChecker is meant to be simple to get you up and running checking things with the recipes included (you can add more recipes which we will get into later).  All you should need to do is edit `checks.json` where you define what you want the application to check.
+
+The default checks will generate random numbers, ping google.com, and check the http response time of google.com
+* git clone
+* cd api
+* npm install
+* npm update
+* api nodeChecker.js
+* ?
+* profit!
+
+## Access
+
+Once your nodeChecker is up and running, you can access your data in a few ways:
+
+* Charts in the browser: You can visit the running application {tool}/file/ to see your data live.  
+	* The default URL would be `http://localhost:8080/file`
+	* You can update this URL in `config.json`
+* API
+	* Thanks to the actionHero framework, your chart data can always be viewed and accessed via API.  The action to use to for this is `getData` and accepts the parameters `check`, `callback` and `since`
+		* Visit the [actionHero](https://github.com/evantahler/actionHero) project page to learn more about actions.
+	* `check` is the name of the check as defined in `checks.json`.
+	* `since` is an optional parameter which will show you only data newer than the timestamp (ms) provided.
+	* `callback` is optional if accessing the API via JSON-p and will wrap the response in the callback function provided
+	* Example: `http://localhost:8080/?action=getData&callback=app.page.processGetData&check=random_numbers&since=1327900579981`
 
 ## Anatomy of a checker (you can build your own!)
 Checks live in /api/checkers/.  Their main action is `checker.run`, and takes in the api object, params, and next().  They will preform the action you define and return the results.  The main api will handle aggregation of results.  Be sure that your file name and `checker.name` match.
@@ -201,17 +230,33 @@ I will retrieve information from Google Analytics.  You can provide a fixed star
 		}
 	}
 
-### Redis (SOON)
-### APIs (json) (SOON)
-### APIs (xml) (SOON)
 
+### SSH
 
-## Quickstart
-The default checks will generate random numbers, ping google.com, and check the http response time of google.com
-* git clone
-* cd api
-* npm install
-* npm update
-* api manager.js
-* ?
-* profit!
+I will connect via SSH and run a command on the remote machine.  The response of this request can then be examined via regex to identify the numeric value you would like reported on.  This can be valuable for checking on disk space remaining, etc.  
+
+**True**: If I could retrieve the information from the sever, and regex parsed the results finding a number.
+
+**False** If something went wrong with the request
+
+**Example Configuration**
+
+	{
+		"name":"disk_space_on_actionHero_demo_server",
+		"type":"ssh",
+		"frequencyInSeconds":10,
+		"entriesToKeep":100,
+		"params":{
+			"hostname": "actionhero.evantahler.com",
+			"user": "userNameHere",
+			"command": "df",
+			"sshKey": "/path/to/your/file.pem",
+			"regex": "\/dev\/xvda1\\s*\\d*\\s*\\d*\\s*\\d*\\s*(...)%"
+		}
+	}
+
+The regex listed above is used to parse a `df` output that looks like the following to obtain the % dim free on the xvda1 drive:
+
+	Filesystem           1K-blocks      Used Available Use% Mounted on
+	/dev/xvda1             8256952   1407440   6765640  18% /
+	tmpfs                   305624         0    305624   0% /dev/shm

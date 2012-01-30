@@ -26,45 +26,5 @@
 			"hostname":"http://www.google.com",
 			"matcher":"</div>"
 		}
-	},
-
-	{
-		"name":"myql_log_localhost",
-		"type":"mySQL",
-		"frequencyInSeconds":2,
-		"entriesToKeep":100,
-		"params":{
-			"host": "127.0.0.1",
-			"user": "root",
-			"password": null,
-			"database": "action_hero_api",
-			"query": "select count(1) as 'number' from logs",
-			"responseColumn": "number"
-		}
-	},
-
-	{
-		"name":"tweets_for_modcloth",
-		"type":"twitterSearch",
-		"frequencyInSeconds":60,
-		"entriesToKeep":100,
-		"params":{
-			"consumer_key": "xxx",
-			"consumer_secret": "xxx",
-			"access_token_key": "xxx",
-			"access_token_secret": "xxx",
-			"query": "modcloth"
-		}
-	},
-
-	{
-		"name":"facebook_for_modcloth",
-		"type":"facebookSearch",
-		"frequencyInSeconds":10,
-		"entriesToKeep":100,
-		"params":{
-			"query": "modcloth"
-		}
 	}
-
 ]
