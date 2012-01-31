@@ -119,8 +119,35 @@ function initCheckers(api, next)
 	try{
 		api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
 	}catch(e){
-		api.log("No data found in checks.js, loading defualts from defaultChecks.json");
-		api.checks = JSON.parse(api.fs.readFileSync('defaultChecks.json','utf8'));
+		api.log("No data found in checks.js, loading example checks.");
+		api.checks = [
+			{
+				"name":"random_numbers",
+				"type":"randomNumber",
+				"frequencyInSeconds":2,
+				"entriesToKeep":100,
+				"params":{}
+			},
+			{
+				"name":"ping_google_com",
+				"type":"ping",
+				"frequencyInSeconds":10,
+				"entriesToKeep":100,
+				"params":{
+					"hostname":"google.com"
+				}
+			},
+			{
+				"name":"http_google_com",
+				"type":"httpRequest",
+				"frequencyInSeconds":10,
+				"entriesToKeep":100,
+				"params":{
+					"hostname":"http://www.google.com",
+					"matcher":"</div>"
+				}
+			}
+		];
 	}
 	api.checks.forEach(function(check){
 		if(api.data[check.name] == null){ api.data[check.name] = []; }
