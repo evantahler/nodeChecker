@@ -19,6 +19,6 @@
 	},
   "devDependencies": {},
   "scripts":{
-    "start" : "node nodeChecker.json"
+    "start" : "node nodeChecker.js"
   }
 }
