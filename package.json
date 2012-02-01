@@ -17,5 +17,8 @@
     "soupselect": ">=0.1.0",
     "htmlparser": ">=1.6.2"
 	},
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts":{
+    "start" : "node nodeChecker.json"
+  }
 }
