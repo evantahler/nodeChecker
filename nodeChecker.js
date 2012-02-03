@@ -119,13 +119,15 @@ function initCheckers(api, next)
 	try{
 		api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
 	}catch(e){
-		api.log("No data found in checks.js, loading example checks.");
+		console.log(e);
+		api.log("Loading example checks.");
 		api.checks = [
 			{
 				"name":"random_numbers",
 				"type":"randomNumber",
 				"frequencyInSeconds":2,
 				"entriesToKeep":100,
+				"axisLabel" : "Random Number",
 				"params":{}
 			},
 			{
@@ -133,6 +135,7 @@ function initCheckers(api, next)
 				"type":"ping",
 				"frequencyInSeconds":10,
 				"entriesToKeep":100,
+				"axisLabel": "ping duration (ms)",
 				"params":{
 					"hostname":"google.com"
 				}
@@ -142,6 +145,7 @@ function initCheckers(api, next)
 				"type":"httpRequest",
 				"frequencyInSeconds":10,
 				"entriesToKeep":100,
+				"axisLabel": "http request time (ms)",
 				"params":{
 					"hostname":"http://www.google.com",
 					"matcher":"</div>"
