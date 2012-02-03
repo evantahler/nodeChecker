@@ -116,7 +116,7 @@
 			xAxis: {
 				type: 'datetime',
 				title: {
-					text: null
+					text: 'Sample timestamp (UTC)'
 				}
 			},
 			yAxis: {
@@ -209,6 +209,7 @@
 						color: "red"
 					}
 				], true);
+
 
 				$('#currentValue_'+name).html(name+": "+api.check[i].number);
 				var avg = 0;
