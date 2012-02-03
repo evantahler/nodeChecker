@@ -38,6 +38,7 @@ action.run = function(api, connection, next){
 					connection.response.checkData.type = api.checks[i].type;
 					connection.response.checkData.frequencyInSeconds = api.checks[i].frequencyInSeconds;
 					connection.response.checkData.entriesToKeep = api.checks[i].entriesToKeep;
+					connection.response.checkData.axisLabel = api.checks[i].axisLabel;
 					connection.response.checkData.params = '*';
 					break;
 				}
