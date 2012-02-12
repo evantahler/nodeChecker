@@ -1,8 +1,10 @@
 function initCheckers(api, next)
 {
-	api.data = {}; // cache for check resposonses
-	api.apiData = {}; // cache for random checker varaible storage
-	api.checkers = {}; // list of checkers (like actions)
+	api.nodeChecker = {};
+	// api.nodeChecker.data = api.cache.data.nodeCheckerData; // cache for check resposonses.  I will be loaded in from the cache like normal if I exist
+	// if (api.nodeChecker.data == null){ api.nodeChecker.data = {}; }
+	api.nodeChecker.apiData = {}; // cache for checker varaible storage
+	api.nodeChecker.checkers = {}; // list of checkers (like actions)
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// new modules
@@ -12,25 +14,30 @@ function initCheckers(api, next)
 	/////////////////////////////////////////////////////////////////////////////////////
 	// the actual check
 	api.runCheck = function(api, check){
-		try{
-			var startTime = new Date().getTime();
-			api.checkers[check.type].check(api, check.params, function(response){
-				response.timeStamp = new Date().getTime();
-				var D = api.data[check.name];
-				D.push(response);
-				while( D.length > check.entriesToKeep){
-					D.shift();
-				}
-				var requestDurationSeconds = (response.timeStamp - startTime)/1000;
-				api.sendSocketCheckResuts(check, response);
-				api.log("checked -> "+check.name+":"+check.type+" in "+requestDurationSeconds+"s", "magenta");
-				setTimeout(api.runCheck, (check.frequencyInSeconds * 1000), api, check);
-			});
-		}catch(e){
-			api.log(e, "red");
-			api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
-			api.log(" > "+check.name+" will not be processed", "red");
-		}
+		var cacheName = "nodeCheckerData_" + check.name;
+		api.cache.load(api, cacheName, function(data){
+			try{
+				if (data == null){ data = []; }
+				var startTime = new Date().getTime();
+				api.nodeChecker.checkers[check.type].check(api, check.params, function(response){
+					response.timeStamp = new Date().getTime();
+					data.push(response);
+					while( data.length > check.entriesToKeep){
+						data.shift();
+					}
+					api.cache.save(api, cacheName, data, null, function(){
+						var requestDurationSeconds = (response.timeStamp - startTime)/1000;
+						api.sendSocketCheckResuts(check, response);
+						api.log("checked -> "+check.name+":"+check.type+" in "+requestDurationSeconds+"s", "magenta");
+						setTimeout(api.runCheck, (check.frequencyInSeconds * 1000), api, check);
+					});
+				});
+			}catch(e){
+				api.log(e, "red");
+				api.log(check.name+":"+check.type+" is not a check I know how to do.  Check checks.json", "red");
+				api.log(" > "+check.name+" will not be processed", "red");
+			}
+		});
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -97,29 +104,18 @@ function initCheckers(api, next)
 	api.fs.readdirSync("./checkers").forEach( function(file) {
 		if (file != ".DS_Store"){
 			var checkerName = file.split(".")[0];
-			api.checkers[checkerName] = require("./checkers/" + file)["checker"];
-			api.apiData[checkerName] = {};
+			api.nodeChecker.checkers[checkerName] = require("./checkers/" + file)["checker"];
+			api.nodeChecker.apiData[checkerName] = {};
 			api.log("checker loaded: " + checkerName, "yellow");
 		}
 	});
 	
 	/////////////////////////////////////////////////////////////////////////////////////
-	// Load saved data if it exists
-	try{
-		var fileData = api.fs.readFileSync(api.configData.logFolder + "/data.json",'utf8');
-		api.data = JSON.parse(fileData);
-		api.log("data loaded from backup file.");
-	}catch(e){
-		api.log("no data backup file found, continuing.");
-		api.log(" > "+e);
-	}
-	
-	/////////////////////////////////////////////////////////////////////////////////////
 	// load and run checks!
 	try{
-		api.checks = JSON.parse(api.fs.readFileSync('checks.json','utf8'));
+		api.checks = JSON.parse(api.fs.readFileSync('./checks.json','utf8'));
 	}catch(e){
-		console.log(e);
+		// console.log(e);
 		api.log("Loading example checks.");
 		api.checks = [
 			{
@@ -154,12 +150,10 @@ function initCheckers(api, next)
 		];
 	}
 	api.checks.forEach(function(check){
-		if(api.data[check.name] == null){ api.data[check.name] = []; }
+		// if(api.nodeChecker.data[check.name] == null){ api.nodeChecker.data[check.name] = []; }
 		process.nextTick(function() { api.runCheck(api, check) });
 		api.log("loaded check: "+check.name, "magenta");
 	});
-	
-	
 	
 	next();
 }

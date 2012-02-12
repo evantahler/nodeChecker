@@ -1,7 +1,7 @@
 # nodeChecker
 
 ## What?
-With this tool, you can monitor many things and visualize them.  This is a light weight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
+With this tool, you can monitor many things and visualize them.  This is a lightweight application which doesn't require it's own database, etc to use.  You can run it locally on your development machine to monitor your production environment.  There are no local storage age requirements other than a flat file which will periodically store data objects for recovery if the application is restarted.
 
 nodeChecker will sample your sources and make the data acquired available in charts viewable in the browser, pushed to any connected socket users, or exposed via HTTP JSON api.
 
@@ -14,9 +14,8 @@ The default checks will generate random numbers, ping google.com, and check the 
 * git clone
 * cd api
 * npm install
-* npm update
-* api nodeChecker.js
-* ?
+* npm start
+* ???
 * profit!
 
 ## Access
@@ -41,7 +40,7 @@ Once your nodeChecker is up and running, you can access your data in a few ways:
 
 Here is an example of what looking at nodeChecker in the browser looks like:
 
-![image](https://raw.github.com/evantahler/nodeChecker/master/nodeChecker.jpg)
+![image](https://raw.github.com/evantahler/nodeChecker/master/img/nodeChecker.jpg)
 
 Here is an example of the API response for a check:
 

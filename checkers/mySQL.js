@@ -17,8 +17,8 @@ checker.params = {
 
 checker.check = function(api, params, next){
 	var checkID = params.query + "~" + params.host;
-	if (typeof api.apiData.mySQL.connections === 'undefined'){
-		api.apiData.mySQL.connections = {};
+	if (typeof api.nodeChecker.apiData.mySQL.connections === 'undefined'){
+		api.nodeChecker.apiData.mySQL.connections = {};
 	}
 
 	var response = {};
@@ -30,8 +30,8 @@ checker.check = function(api, params, next){
 	if(response.error == false){
 		try{
 
-			if(api.apiData.mySQL.connections[checkID] == null){
-				api.apiData.mySQL.connections[checkID] = api.mysql.createClient({
+			if(api.nodeChecker.apiData.mySQL.connections[checkID] == null){
+				api.nodeChecker.apiData.mySQL.connections[checkID] = api.mysql.createClient({
 				  host: params.host,
 				  port: params.port,
 				  user: params.user,
@@ -40,7 +40,7 @@ checker.check = function(api, params, next){
 				});
 			}
 			
-			var client = api.apiData.mySQL.connections[checkID];
+			var client = api.nodeChecker.apiData.mySQL.connections[checkID];
 
 			client.query('USE '+params.database, function(err) {
 			  if (err) {

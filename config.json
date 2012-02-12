@@ -31,21 +31,20 @@
 			"port": null
 		}
 	},
-
-    "database" : null,
-
+	
 	"flatFileDirectory" : "./public/",
 	"flatFileNotFoundMessage" : "Sorry, that file is not found :(",
 	"flatFileIndexPageNotFoundMessage" : "Sorry, there is no index page for this folder :(",
 
 	"cache" : {
+		"cacheFolder" : "./cache/",
+		"cacheFile" : "api.cache",
 		"defaultExpireTimeSeconds" : 3600,
 		"maxMemoryBytes" : 524288000
 	},
 
 	"defaultSocketRoom": "defaultRoom",
 
-	"apiRequestLimitPerHour" : 1000,
 	"defaultLimit" : 100,
 	"defaultOffset" : 0
 }

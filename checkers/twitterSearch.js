@@ -14,8 +14,8 @@ checker.params = {
 };
 
 checker.check = function(api, params, next){
-	if (typeof api.apiData.twitterSearch.lastTweetIDs === 'undefined'){
-		api.apiData.twitterSearch.lastTweetIDs = {};
+	if (typeof api.nodeChecker.apiData.twitterSearch.lastTweetIDs === 'undefined'){
+		api.nodeChecker.apiData.twitterSearch.lastTweetIDs = {};
 	}
 
 	var response = {};
@@ -35,18 +35,18 @@ checker.check = function(api, params, next){
         		response.error = err.data;
         		next(response);
         	}else{
-        		if(api.apiData.twitterSearch.lastTweetIDs[params.query] == null){api.apiData.twitterSearch.lastTweetIDs[params.query] = 0;}
-        		twit.search(params.query, {since_id: api.apiData.twitterSearch.lastTweetIDs[params.query], rpp:100}, function(err, data) {
+        		if(api.nodeChecker.apiData.twitterSearch.lastTweetIDs[params.query] == null){api.nodeChecker.apiData.twitterSearch.lastTweetIDs[params.query] = 0;}
+        		twit.search(params.query, {since_id: api.nodeChecker.apiData.twitterSearch.lastTweetIDs[params.query], rpp:100}, function(err, data) {
 				    if(err != null){
 		        		response.error = err.data;
 		        		next(response);
 		        	}else{
-		        		if(api.apiData.twitterSearch.lastTweetIDs[params.query] == 0){
+		        		if(api.nodeChecker.apiData.twitterSearch.lastTweetIDs[params.query] == 0){
 		        			response.number = 0;
 		        		}else{
 		        			response.number = data.results.length;
 		        		}
-		        		api.apiData.twitterSearch.lastTweetIDs[params.query] = data.max_id_str;
+		        		api.nodeChecker.apiData.twitterSearch.lastTweetIDs[params.query] = data.max_id_str;
 		        		response.check = true;
 		        		next(response);
 		        	}
