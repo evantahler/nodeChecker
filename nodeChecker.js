@@ -1,8 +1,6 @@
 function initCheckers(api, next)
 {
 	api.nodeChecker = {};
-	// api.nodeChecker.data = api.cache.data.nodeCheckerData; // cache for check resposonses.  I will be loaded in from the cache like normal if I exist
-	// if (api.nodeChecker.data == null){ api.nodeChecker.data = {}; }
 	api.nodeChecker.apiData = {}; // cache for checker varaible storage
 	api.nodeChecker.checkers = {}; // list of checkers (like actions)
 	
@@ -150,7 +148,6 @@ function initCheckers(api, next)
 		];
 	}
 	api.checks.forEach(function(check){
-		// if(api.nodeChecker.data[check.name] == null){ api.nodeChecker.data[check.name] = []; }
 		process.nextTick(function() { api.runCheck(api, check) });
 		api.log("loaded check: "+check.name, "magenta");
 	});
