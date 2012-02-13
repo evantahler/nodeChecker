@@ -1,7 +1,7 @@
 // I am a collection of useful scripts...
 
 var app = app || {};
-var apiURL = "http://" + window.location.host;
+var apiURL = "http://" + window.location.host + "/api/";
 
 app.config = {
 	"apiURL" : apiURL,

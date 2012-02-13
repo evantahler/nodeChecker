@@ -8,7 +8,7 @@
 
 	"urlPathForActions" : "api",
 	"urlPathForFiles" : "file",
-	"rootEndpointType" : "api",
+	"rootEndpointType" : "file",
 
 	"logging" : true,
 	"logFolder" : "./log/",
