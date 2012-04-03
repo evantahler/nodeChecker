@@ -6,8 +6,9 @@ function initCheckers(api, next)
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// new modules
-	api.twitter = require('ntwitter');
 	api.mysql = require('mysql');
+	api.https = require('https');
+	api.querystring = require('querystring');
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	// the actual check
@@ -17,13 +18,18 @@ function initCheckers(api, next)
 			try{
 				if (data == null){ data = []; }
 				var startTime = new Date().getTime();
+				check.params._data = data;
 				api.nodeChecker.checkers[check.type].check(api, check.params, function(response){
 					response.timeStamp = new Date().getTime();
-					data.push(response);
+					if(response.dataOverride != true){
+						data.push(response);
+					}else{
+						data = response._data;
+					}
 					while( data.length > check.entriesToKeep){
 						data.shift();
 					}
-					api.cache.save(api, cacheName, data, null, function(){
+					api.cache.save(api, cacheName, data, null, function(resp){
 						var requestDurationSeconds = (response.timeStamp - startTime)/1000;
 						api.sendSocketCheckResuts(check, response);
 						api.log("checked -> "+check.name+":"+check.type+" in "+requestDurationSeconds+"s", "magenta");
@@ -98,6 +104,12 @@ function initCheckers(api, next)
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////
+	// Setup Message Queue
+	api.messages = {};
+	api.messages.messages = []; // {message: string, timestamp: datetime}
+	api.messages.messagesToKeep = api.configData.messagesToKeep;
+	
+	/////////////////////////////////////////////////////////////////////////////////////
 	// Load checkers
 	api.fs.readdirSync("./checkers").forEach( function(file) {
 		if (file != ".DS_Store"){
@@ -113,7 +125,7 @@ function initCheckers(api, next)
 	try{
 		api.checks = JSON.parse(api.fs.readFileSync('./checks.json','utf8'));
 	}catch(e){
-		// console.log(e);
+		console.log(e);
 		api.log("Loading example checks.");
 		api.checks = [
 			{
