@@ -106,26 +106,52 @@ Every checker should return response = {} which contains:
 
 number is the number you wish to graph, such as number of users or response time.
 
-Here is a simple example:
+When building a new check, the normal behavior is to add one new value (number) to an existsing queue.  This is done by building up the response object: 
 
 	var checker = {};
 	
 	checker.name = "randomNumber";
 	checker.params = {
-		"required":[],
-		"optional":[]
+	    "required":[],
+	    "optional":[]
 	};
 	
 	checker.check = function(api, params, next){
-		var response = {};
-		response.error = false;
-		response.check = false;
-		var number = Math.random() * 100;
-		response.number = number;
-		response.check = true;
-		next(response);
+	    var response = {};
+	    var number = Math.random() * 100;
+	    response.number = number;
+	    response.error = false;
+	    response.check = true;
+	    next(response);
 	};
+	
+	exports.checker = checker;
+	
+However, you may want to populate the entire dataset of a check with remote data, and you would do that as follows (note the setting of `_data` and `dataOverride`)(also note that `data[i].timeStamp` is in UTC milliseconds): 
 
+	var checker = {};
+	
+	checker.name = "manyRandomNumber";
+	checker.params = {
+	    "required":[],
+	    "optional":[]
+	};
+	
+	checker.check = function(api, params, next){
+	    var data = [];
+	    while(i < 100){
+		    data.push({
+				timeStamp: i * (24 * 60 * 60 * 1000),
+				error: false,
+				check: true,
+				number: Math.random() * 100
+			});
+	    }
+	    response.dataOverride = true;
+		response._data = data;
+	    next(response);
+	};
+	
 	exports.checker = checker;
 
 ## Supported Checks
@@ -222,47 +248,9 @@ I will query a database for you.  If the result set returns no information, I'll
 		}
 	}
 
-### Twitter Search
-I will listen for tweets about your query.  This action requires an authenticated twitter user and an application.  Create one here https://dev.twitter.com/apps/new.  
 
-**True**: If I could reach the host and the response was valid
 
-**False** If something went wrong with the request
 
-**Example Configuration**
-
-	{
-		"name":"tweets_for_modcloth",
-		"type":"twitterSearch",
-		"frequencyInSeconds":60,
-		"entriesToKeep":100,
-		"params":{
-			"consumer_key": "xxx",
-			"consumer_secret": "xxx",
-			"access_token_key": "xxx",
-			"access_token_secret": "xxx",
-			"query": "modcloth"
-		}
-	}
-
-### Facebook Search
-I will query public posts for your query.
-
-**True**: If I could reach the host and the response was valid
-
-**False** If something went wrong with the request
-
-**Example Configuration**
-
-	{
-		"name":"facebook_for_modcloth",
-		"type":"facebookSearch",
-		"frequencyInSeconds":10,
-		"entriesToKeep":100,
-		"params":{
-			"query": "modcloth"
-		}
-	}
 
 ### Google Analytics
 I will retrieve information from Google Analytics.  You can provide a fixed start and end time, or the optional parameter of 'trailingTimeseriesHours' which will retrieve information from now back N hours.
@@ -273,23 +261,6 @@ I will retrieve information from Google Analytics.  You can provide a fixed star
 
 **Example Configuration**
 
-	{
-		"name":"ga",
-		"type":"googleAnalytics",
-		"frequencyInSeconds": 3600,
-		"entriesToKeep":100,
-		"params":{
-			"password":"XXX",
-			"user":"XXX",
-			"profileID":"ga:12334",
-			"start_date":"",
-			"end_date":"",
-			"trailingTimeseriesHours":1,
-			"dimensions":"",
-			"metrics":"ga:visitors",
-			"sort":""
-		}
-	}
 
 
 ### SSH
