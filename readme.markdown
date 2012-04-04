@@ -249,19 +249,13 @@ I will query a database for you.  If the result set returns no information, I'll
 	}
 
 
+### Google Analytics (coming soon)
 
+### Jenkins (coming soon)
 
+### RJMetrics (coming soon)
 
-### Google Analytics
-I will retrieve information from Google Analytics.  You can provide a fixed start and end time, or the optional parameter of 'trailingTimeseriesHours' which will retrieve information from now back N hours.
-
-**True**: If I could reach Google Analytics and retrieve information
-
-**False** If something went wrong with the request
-
-**Example Configuration**
-
-
+### New Relic (coming soon)
 
 ### SSH
 
